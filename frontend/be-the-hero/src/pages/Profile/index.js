@@ -5,14 +5,16 @@ import api from '../../services/api';
 import './styles.css';
 import logoImg from '../../assets/logo.svg';
 
-export default function Profile() {
+const Profile = () => {
   const [incidents, setIncidents] = useState([])
   const history = useHistory()
 
-  //Buscar valor no storage do navegador.
+  // Buscar valor no localStorage do navegador.
   const ongId = localStorage.getItem('ongId');
   const ongName = localStorage.getItem('ongName');
 
+  // Executar uma função em algum determinado momento de um componente.
+  // Nesse caso, assim que "/profile" for acessado, a listagem dos casos é executada.
   useEffect(() => {
     api.get('profile', {
       headers: {
@@ -23,6 +25,7 @@ export default function Profile() {
     })
   }, [ongId])
 
+  // Função Deletar caso
   const  handleDeleteIncident = async (id) => {
     try {
       await api.delete(`incidents/${id}`, {
@@ -70,7 +73,9 @@ export default function Profile() {
           <p>{incident.description}</p>
 
           <strong>VALOR:</strong>
-          <p>{Intl.NumberFormat
+
+          
+          <p>{Intl.NumberFormat // Classe global do Javascript: Internacionalização
               ('pt-BR', { 
                 style: 'currency',
                 currency: 'BRL'
@@ -88,3 +93,5 @@ export default function Profile() {
     </div>
   );
 }
+
+export default Profile
