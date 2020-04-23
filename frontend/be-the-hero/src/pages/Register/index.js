@@ -19,8 +19,8 @@ const Register = () => {
 
 
   // Função de Registro
-  const handleRegister = async (e) => {
-    e.preventDefault()
+  const handleRegister = async (eventSubmit) => {
+    eventSubmit.preventDefault()
 
     const data = {
       name,
@@ -33,7 +33,7 @@ const Register = () => {
     try {            
       const response = await api.post('ongs', data)
       alert(`Seu ID de acesso: ${ response.data.id }`)
-      history.push('/');
+      history.push('/'); // Direcionar para rota inicial(Home)
 
     } catch (error) {
       alert('Erro no cadastro, tente novamente.')
@@ -58,34 +58,34 @@ const Register = () => {
           <input
             placeholder="Nome da ONG"
             value={name}
-            onChange={e => setName(e.target.value)}
+            onChange={eventSubmit => setName(eventSubmit.target.value)}
           />
 
           <input
             type="email"
             placeholder="E-mail"
             value={email}
-            onChange={e => setEmail(e.target.value)}
+            onChange={eventSubmit => setEmail(eventSubmit.target.value)}
           />
 
           <input
             placeholder="WhatsApp"
             value={whatsapp}
-            onChange={e => setWhatsapp(e.target.value)}
+            onChange={eventSubmit => setWhatsapp(eventSubmit.target.value)}
           />
 
           <div className="input-group">
             <input
               placeholder="Cidade"
               value={city}
-              onChange={e => setCity(e.target.value)}
+              onChange={eventSubmit => setCity(eventSubmit.target.value)}
             />
 
             <input
               placeholder="UF" maxLength="2"
               style={{ width: 80 }} width="80"
               value={uf}
-              onChange={e => setUf(e.target.value)}
+              onChange={eventSubmit => setUf(eventSubmit.target.value)}
             />
           </div>
 
@@ -96,6 +96,5 @@ const Register = () => {
     </div>
   )
 }
-
 
 export default Register
